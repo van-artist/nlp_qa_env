@@ -3,3 +3,4 @@
 /settings.json
 /setup_log.txt
 /.mypy_cache
+__pycache__/
