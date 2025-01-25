@@ -5,8 +5,6 @@ Write-Host "Python Path after activation:"
 
 Write-Host "Setting Hugging Face domestic mirror source..."
 $env:HF_HUB_ENABLE_HF_PROXY = "true"
-$env:HF_HUB_PROXY = "https://hf-mirror.com"
-$env:HF_ENDPOINT = "https://hf-mirror.com"
 
 Write-Host "Running environment check..."
 & ".\miniconda\envs\nlp_env\python.exe" ./scripts/device_check.py

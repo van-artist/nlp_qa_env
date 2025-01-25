@@ -1,6 +1,9 @@
 from transformers import AutoTokenizer, AutoModel, pipeline
 import logging
 from config import TEST_STR
+import huggingface_hub as hub
+
+hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
 
 def main():
     print("测试用户脚本")
