@@ -1,12 +1,12 @@
-& ".\miniconda\condabin\Scripts\conda.exe" activate nlp_env
+$installPath = Join-Path -Path $PWD -ChildPath "miniconda"
+$pythonPath = Join-Path -Path $installPath -ChildPath "envs\nlp_env\python.exe"
 
 Write-Host "Python Path after activation:"
-& ".\miniconda\envs\nlp_env\python.exe" --version
-
-Write-Host "Setting Hugging Face domestic mirror source..."
+& $pythonPath --version
 
 Write-Host "Running environment check..."
-$env:HF_HUB_ENABLE_HF_PROXY = "true"
 $env:HF_ENDPOINT = "https://hf-mirror.com"
-& ".\miniconda\envs\nlp_env\python.exe" ./scripts/device_check.py
-& ".\miniconda\envs\nlp_env\python.exe" ./scripts/model_check.py
+& $pythonPath .\scripts\device_check.py
+& $pythonPath .\scripts\model_check.py
+
+Write-Host "Environment check completed!"

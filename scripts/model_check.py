@@ -7,6 +7,7 @@ import huggingface_hub as hub
 
 
 hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
+hub.HUGGINGFACE_CO_PREFIX = "https://hf-mirror.com" 
 # 配置日志格式
 logging.basicConfig(
     level=logging.INFO,
@@ -25,7 +26,7 @@ logging.info(f"RNN Test Successful. Output shape: {output.shape}")
 
 # BERT 测试
 logging.info("Starting BERT Test...")
-model_name = "bert-base-uncased"
+model_name = "bert-base-chinese"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModel.from_pretrained(model_name)
 inputs = tokenizer("Testing BERT model.", return_tensors="pt")
