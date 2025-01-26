@@ -1,9 +1,6 @@
 import logging
 import torch
 import platform
-import huggingface_hub as hub
-
-hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
