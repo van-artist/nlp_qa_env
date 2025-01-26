@@ -3,9 +3,11 @@ import logging
 from config import TEST_STR
 import huggingface_hub as hub
 
-hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
+
 
 def main():
+    hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
+    hub.HUGGINGFACE_CO_PREFIX = "https://hf-mirror.com"
     print("测试用户脚本")
     print(TEST_STR)
     # Use a pipeline as a high-level helper
