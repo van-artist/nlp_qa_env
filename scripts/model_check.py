@@ -1,8 +1,9 @@
+# type: ignore
 import logging
 import torch
 import torch.nn as nn
 from transformers import AutoTokenizer, AutoModel, pipeline
-from huggingface_hub import hub
+import huggingface_hub as hub
 
 
 hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
