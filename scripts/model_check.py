@@ -2,7 +2,10 @@ import logging
 import torch
 import torch.nn as nn
 from transformers import AutoTokenizer, AutoModel, pipeline
+from huggingface_hub import hub
 
+
+hub.HUGGINGFACE_CO_RESOLVE_ENDPOINT = "https://hf-mirror.com"
 # 配置日志格式
 logging.basicConfig(
     level=logging.INFO,

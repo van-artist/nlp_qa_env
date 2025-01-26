@@ -12,9 +12,10 @@ if (-Not (Test-Path $pythonPath)) {
 }
 
 Write-Host "Installing dependencies using Pip..."
-Start-Process -FilePath $pythonPath -ArgumentList "-m pip install torch" -NoNewWindow -Wait
-Start-Process -FilePath $pythonPath -ArgumentList "-m pip install transformers" -NoNewWindow -Wait
-Start-Process -FilePath $pythonPath -ArgumentList "-m pip install huggingface-hub" -NoNewWindow -Wait
+Start-Process -FilePath $pythonPath -ArgumentList "-m pip install torch -i https://pypi.tuna.tsinghua.edu.cn/simple" -NoNewWindow -Wait
+Start-Process -FilePath $pythonPath -ArgumentList "-m pip install transformers -i https://pypi.tuna.tsinghua.edu.cn/simple" -NoNewWindow -Wait
+Start-Process -FilePath $pythonPath -ArgumentList "-m pip install huggingface-hub -i https://pypi.tuna.tsinghua.edu.cn/simple" -NoNewWindow -Wait
+
 
 Write-Host "Verifying installations..."
 Start-Process -FilePath $pythonPath -ArgumentList "-c `"import torch; print('PyTorch version:', torch.__version__)`"" -NoNewWindow -Wait
