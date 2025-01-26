@@ -1,24 +1,11 @@
-Write-Host "Creating Conda environment..."
-.\miniconda\Scripts\conda.exe create -n nlp_env python=3.10 -y
+$installPath = Join-Path -Path $PWD -ChildPath "miniconda"
+$condaExe = Join-Path -Path $installPath -ChildPath "Scripts\conda.exe"
+$condaActivateScript = Join-Path -Path $installPath -ChildPath "Scripts\conda.exe"
+
+Write-Host "Creating Conda environment 'nlp_env'..."
+Start-Process -FilePath $condaExe -ArgumentList "create", "-n", "nlp_env", "python=3.10", "-y" -Wait
 
 Write-Host "Activating Conda environment..."
-& ".\miniconda\condabin\conda.bat" activate nlp_env
+Start-Process -FilePath $condaActivateScript -ArgumentList "activate", "nlp_env" -Wait
 
-$pythonPath = ".\miniconda\envs\nlp_env\python.exe"
-
-if (-Not (Test-Path $pythonPath)) {
-    Write-Host "Error: Python executable not found in Conda environment!"
-    exit 1
-}
-
-Write-Host "Installing dependencies using Pip..."
-Start-Process -FilePath $pythonPath -ArgumentList "-m pip install torch -i https://pypi.tuna.tsinghua.edu.cn/simple" -NoNewWindow -Wait
-Start-Process -FilePath $pythonPath -ArgumentList "-m pip install transformers -i https://pypi.tuna.tsinghua.edu.cn/simple" -NoNewWindow -Wait
-Start-Process -FilePath $pythonPath -ArgumentList "-m pip install huggingface-hub -i https://pypi.tuna.tsinghua.edu.cn/simple" -NoNewWindow -Wait
-
-
-Write-Host "Verifying installations..."
-Start-Process -FilePath $pythonPath -ArgumentList "-c `"import torch; print('PyTorch version:', torch.__version__)`"" -NoNewWindow -Wait
-Start-Process -FilePath $pythonPath -ArgumentList "-c `"from transformers import pipeline; print('Transformers installed successfully!')`"" -NoNewWindow -Wait
-
-Write-Host "Environment setup completed successfully!"
+Write-Host "Conda environment 'nlp_env' activated successfully!"

@@ -1,4 +1,4 @@
-& ".\miniconda\condabin\conda.bat" activate nlp_env
+& ".\miniconda\condabin\Scripts\conda.exe" activate nlp_env
 
 Write-Host "Python Path after activation:"
 & ".\miniconda\envs\nlp_env\python.exe" --version
