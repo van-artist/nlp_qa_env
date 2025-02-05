@@ -18,6 +18,7 @@ ENV_NAME="nlp_course_env"
 
 DEVICE_CHECK_PATH="$SCRIPTS_DIR/device_check.py"
 MODEL_CHECK_PATH="$SCRIPTS_DIR/model_check.py"
+MILVUS_CHECK_PATH="$SCRIPTS_DIR/milvus_check.py"
 
 echo "=================================================="
 echo " NLP 实践课程环境配置脚本 (macOS)"
@@ -113,7 +114,7 @@ pip install torch
 
 echo "=> 安装 Transformers 和 Hugging Face 工具..."
 pip install --upgrade pip
-pip install --upgrade transformers accelerate huggingface-hub
+pip install --upgrade transformers accelerate huggingface-hub pymilvus
 
 ########################################
 #          6. 验证安装
@@ -127,8 +128,10 @@ echo "=> 执行检察脚本..."
 
 export HUGGINGFACE_CO_URL_OVERRIDE=https://hf-mirror.com
 export HF_ENDPOINT=https://hf-mirror.com
+
 python "$DEVICE_CHECK_PATH"
 python "$MODEL_CHECK_PATH"
+python "$MILVUS_CHECK_PATH"
 
 ########################################
 #          7. 清理命令提示
