@@ -2,9 +2,12 @@
 
 ## 项目简介
 
-`NLP_QA_ENV` 是一个用于自然语言处理（NLP）实践的环境配置和测试项目，旨在为不同水平的用户提供一键式的开发环境安装流程。项目包括环境初始化、依赖安装、以及基础功能测试。
+`NLP_QA_ENV` 是一个面向自然语言处理（NLP）实践的一键式环境配置项目，专为**不熟悉环境配置的初学者**设计，同时提供**手动模式**供有经验的开发者使用。项目提供：
 
-通过此项目，用户可以快速配置适用于 RNN、BERT 等模型的实验环境，并支持常见的开源小模型如 DeepSeek,Qwen 的集成和运行。
+- **全自动环境初始化**：无需手动安装任何依赖，适合初学者快速上手。
+- **手动快速配置流程**：为熟悉 Conda 的用户提供灵活的操作方式。
+- **硬件加速自动检测**：自动检测 CPU/GPU 支持情况，确保最佳性能。
+- **主流模型运行验证**：支持 RNN、BERT 等模型的快速验证，确保环境可用。
 
 ---
 
@@ -12,75 +15,90 @@
 
 ### 环境需求
 
-- 操作系统：
-  - Windows 10 或更高版本
+- **操作系统**：
+  - Windows 10+（推荐使用 Git Bash 或 WSL）
   - MacOS
-  - 常见的稳定 Linux 发行版
-- 硬件要求：推荐 CPU 支持 AVX 指令集，若有 GPU（CUDA 支持），可以启用加速
-- 软件依赖：
-  - Miniconda (自动下载和安装)
-  - Python 3.10 及以上(3.13 以下)
+  - Linux（常见发行版如 Ubuntu、CentOS 等）
 
 ---
 
-### 快速开始
+## 快速开始
 
-#### 1. 克隆项目
+### 自动配置流程（推荐新手）
 
-```bash
-git clone https://github.com/van-artist/nlp_qa_env.git
-cd nlp_qa_env
-```
+1. **克隆项目**：
 
-#### 2. 运行主脚本
+   ```bash
+   git clone https://github.com/van-artist/nlp_qa_env.git
+   cd nlp_qa_env
+   ```
 
-在 PowerShell 中执行以下命令：
+2. **运行自动化脚本**：
 
-```powershell
-.\setup_env.ps1
-```
+   ```bash
+   # 赋予脚本执行权限（Linux/MacOS）
+   chmod +x setup_env.sh
 
-主脚本将依次执行以下操作：
+   # 启动全自动配置
+   ./setup_env.sh
+   ```
 
-1. 下载并安装 Miniconda。
-2. 初始化 Conda 环境并激活。
-3. 安装所需依赖。
-4. 检查环境是否正确配置。
+3. **根据提示操作**：
 
-#### 3. 验证安装
+   - 脚本将自动完成：
+     - Miniconda 静默安装（约 500MB）
+     - 创建名为 `nlp_env` 的隔离环境
+     - 安装 PyTorch/Transformers 等依赖
+     - 运行硬件检测和模型验证
 
-完成后，脚本将自动运行以下验证测试：
-
-- **设备检测**：确认系统是否支持 GPU 加速。
-- **RNN 测试**：运行简单的 RNN 测试代码，验证 PyTorch 是否正常。
-- **BERT 测试**：验证 Transformers 模型的加载和运行。
-- **文本生成测试**：测试开源小模型的集成是否成功。
+4. **环境生效**：
+   - 脚本结束后，输入以下命令激活环境：
+   ```bash
+   conda activate nlp_env
+   ```
+   - 或者直接双击执行`run_code.bat`脚本，这可以自动执行`src/`目录下的`main.py`文件，你可以在 src 内自由编辑你的项目
 
 ---
 
-## 项目结构
+### 手动配置流程（熟悉 Conda 用户）
 
-```plaintext
-NLP_QA_ENV/
-├── setup_env.ps1          # 主脚本：串联子脚本
-├── scripts/               # 子脚本存放目录
-│   ├── conda_install.ps1  # Conda 安装脚本
-│   ├── env_init.ps1       # 环境初始化脚本
-│   ├── env_check.ps1      # 环境检查脚本
-│   ├── device_check.py    # 设备检查 Python 脚本
-│   ├── model_check.py     # 模型检查 Python 脚本
-├── README.md              # 项目文档
-```
+1. **创建并激活环境**：
+
+   ```bash
+   conda create -n nlp_env python=3.10 -y
+   conda activate nlp_env
+   ```
+
+2. **安装核心依赖**：
+
+   ```bash
+   # 使用官方源
+   pip install torch torchvision transformers
+
+   # 或使用国内镜像加速
+   pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+     torch torchvision transformers
+   ```
+
+3. **验证安装**：
+
+   ```bash
+   # 运行设备检测
+   python scripts/device_check.py
+
+   # 运行BERT测试
+   python scripts/model_check.py --model bert
+   ```
 
 ---
 
 ## 注意事项
 
-1. **首次运行脚本后，需重启 PowerShell 以生效 Conda 初始化配置。**
+1. **首次运行脚本后，需重启终端以生效 Conda 初始化配置。**
 2. 如果安装过程中出现网络问题，可以使用国内镜像（如清华源）加速：
 
-   ```powershell
-   $pythonPath -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple torch torchvision transformers
+   ```bash
+   pip install -i https://pypi.tuna.tsinghua.edu.cn/simple torch torchvision transformers
    ```
 
 ---
@@ -91,3 +109,15 @@ NLP_QA_ENV/
 
 - **邮箱**: shangliu385@gmail.com
 - **GitHub Issues**: [点击这里](https://github.com/van-artist/nlp_qa_env/issues)
+
+---
+
+> **提示**：本文档同时提供 [PDF 版本](./docs/User_Manual.pdf) 供离线使用。
+
+---
+
+### 额外说明
+
+- **默认使用 CPU 平台**：本项目默认配置为 CPU 模式，以确保最大兼容性。如果您的设备支持 GPU 加速，可以参考项目中的高级配置指南手动启用。
+- **跨平台支持**：Shell 脚本兼容 Linux、MacOS 和 Windows（通过 Git Bash 或 WSL），确保用户在不同操作系统下都能顺利使用。
+- **灵活性**：无论是初学者还是高级用户，都能通过本项目快速搭建 NLP 实验环境，专注于模型开发和实践。
